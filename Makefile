@@ -3,3 +3,6 @@ tutorial_1:
 
 tutorial_2:
 	go run -tags=tutorial_2 .
+
+tutorial_3:
+	go run -tags=tutorial_3 .
