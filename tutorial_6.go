@@ -1,5 +1,5 @@
-//go:build tutorial_4
-// +build tutorial_4
+//go:build tutorial_6
+// +build tutorial_6
 
 package main
 
@@ -14,27 +14,30 @@ import (
 	"gorm.io/gorm"
 )
 
-// Target: get all cities whose name is 'Paris' and that the country to which they belong is called 'France'.
+// Target: get all cities whose name is 'Paris' and that are the capital of their country
 func tutorial(db *gorm.DB, shutdowner fx.Shutdowner) {
-	parisFrance, err := orm.NewQuery[models.City](
+	cities, err := orm.NewQuery[models.City](
 		db,
 		conditions.City.NameIs().Eq("Paris"),
 		conditions.City.Country(
-			conditions.Country.NameIs().Eq("France"),
+			conditions.Country.CapitalIdIs().Dynamic().Eq(conditions.City.ID),
 		),
-	).FindOne()
+	).Find()
 
 	// SQL executed:
 	// SELECT cities.* FROM cities
 	// INNER JOIN countries Country ON
-	//    Country.id = cities.country_id AND Country.name = "France" AND Country.deleted_at IS NULL
+	//    Country.id = cities.country_id AND Country.capital_id = cities.id AND Country.deleted_at IS NULL
 	// WHERE cities.name = "Paris" AND cities.deleted_at IS NULL
 
 	if err != nil {
 		log.Panicln(err)
 	}
 
-	fmt.Printf("City named 'Paris' in 'France' is: %+v\n", parisFrance)
+	log.Println("Cities named 'Paris' that are the capital of their country are:")
+	for i, city := range cities {
+		fmt.Printf("\t%v: %+v\n", i+1, city)
+	}
 
 	shutdowner.Shutdown()
 }
