@@ -14,27 +14,26 @@ import (
 	"gorm.io/gorm"
 )
 
-// Target: get all cities whose name is 'Paris' and that the country to which they belong is called 'France'.
+// Target: get the city named 'Paris' with the largest population
 func tutorial(db *gorm.DB, shutdowner fx.Shutdowner) {
 	parisFrance, err := orm.NewQuery[models.City](
 		db,
 		conditions.City.NameIs().Eq("Paris"),
-		conditions.City.Country(
-			conditions.Country.NameIs().Eq("France"),
-		),
-	).FindOne()
+	).Descending(
+		conditions.City.Population,
+	).Limit(1).FindOne()
 
 	// SQL executed:
 	// SELECT cities.* FROM cities
-	// INNER JOIN countries Country ON
-	//    Country.id = cities.country_id AND Country.name = "France" AND Country.deleted_at IS NULL
 	// WHERE cities.name = "Paris" AND cities.deleted_at IS NULL
+	// ORDER BY cities.population DESC
+	// LIMIT 1
 
 	if err != nil {
 		log.Panicln(err)
 	}
 
-	fmt.Printf("City named 'Paris' in 'France' is: %+v\n", parisFrance)
+	fmt.Printf("City named 'Paris' with the largest population is: %+v\n", parisFrance)
 
 	shutdowner.Shutdown()
 }
