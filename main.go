@@ -1,10 +1,12 @@
 package main
 
 import (
-	"github.com/ditrit/badaas/orm"
 	"go.uber.org/fx"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
+
+	"github.com/ditrit/badaas/orm"
+	"github.com/ditrit/badaas/orm/logger"
 )
 
 func main() {
@@ -20,5 +22,6 @@ func main() {
 func NewDBConnection() (*gorm.DB, error) {
 	return orm.Open(
 		sqlite.Open(orm.CreateSQLiteDSN("db")),
+		&gorm.Config{Logger: logger.Default.ToLogMode(logger.Info)},
 	)
 }
