@@ -16,3 +16,6 @@ require (
 	github.com/mattn/go-sqlite3 v1.14.17 // indirect
 	golang.org/x/exp v0.0.0-20230817173708-d852ddb80c63 // indirect
 )
+
+// TODO este deberia ser temporal
+replace gorm.io/driver/sqlite v1.5.3 => github.com/ditrit/sqlite v0.0.0-20230906140046-2f37a3f972de
