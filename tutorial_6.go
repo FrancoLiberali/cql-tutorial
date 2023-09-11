@@ -16,11 +16,11 @@ import (
 
 // Target: get all cities whose name is 'Paris' and that are the capital of their country
 func tutorial(db *gorm.DB, shutdowner fx.Shutdowner) {
-	cities, err := orm.NewQuery[models.City](
+	cities, err := orm.Query[models.City](
 		db,
-		conditions.City.NameIs().Eq("Paris"),
+		conditions.City.Name.Is().Eq("Paris"),
 		conditions.City.Country(
-			conditions.Country.CapitalIdIs().Dynamic().Eq(conditions.City.ID),
+			conditions.Country.CapitalID.Is().Dynamic().Eq(conditions.City.ID),
 		),
 	).Find()
 

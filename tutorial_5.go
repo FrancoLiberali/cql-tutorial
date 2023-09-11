@@ -16,16 +16,16 @@ import (
 
 // Target: get all cities whose name is 'Paris' and preload its country
 func tutorial(db *gorm.DB, shutdowner fx.Shutdowner) {
-	cities, err := orm.NewQuery[models.City](
+	cities, err := orm.Query[models.City](
 		db,
-		conditions.City.NameIs().Eq("Paris"),
+		conditions.City.Name.Is().Eq("Paris"),
 		conditions.City.PreloadCountry(),
 	).Find()
 
 	// Equivalent to:
 	// cities, err := orm.NewQuery[models.City](
 	// 	db,
-	// 	conditions.City.NameIs().Eq("Paris"),
+	// 	conditions.City.Name.Is().Eq("Paris"),
 	// 	conditions.City.Country(
 	// 		conditions.Country.Preload(),
 	// 	),

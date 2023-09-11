@@ -16,11 +16,11 @@ import (
 
 // Target: get all cities whose name is 'Paris' and that the country to which they belong is called 'France'.
 func tutorial(db *gorm.DB, shutdowner fx.Shutdowner) {
-	parisFrance, err := orm.NewQuery[models.City](
+	parisFrance, err := orm.Query[models.City](
 		db,
-		conditions.City.NameIs().Eq("Paris"),
+		conditions.City.Name.Is().Eq("Paris"),
 		conditions.City.Country(
-			conditions.Country.NameIs().Eq("France"),
+			conditions.Country.Name.Is().Eq("France"),
 		),
 	).FindOne()
 

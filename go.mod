@@ -3,7 +3,7 @@ module github.com/ditrit/badaas-orm-tutorial
 go 1.18
 
 require (
-	github.com/ditrit/badaas v0.0.0-20230829112401-f9718ad4970e
+	github.com/ditrit/badaas v0.0.0-20230911080244-4b834e9e4926
 	go.uber.org/fx v1.20.0
 	gorm.io/driver/sqlite v1.5.3
 	gorm.io/gorm v1.25.4

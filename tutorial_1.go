@@ -17,9 +17,9 @@ import (
 // Target: get all cities whose name is 'Paris'
 // SQL executed: SELECT cities.* FROM cities WHERE cities.name = "Paris" AND cities.deleted_at IS NULL
 func tutorial(db *gorm.DB, shutdowner fx.Shutdowner) {
-	cities, err := orm.NewQuery[models.City](
+	cities, err := orm.Query[models.City](
 		db,
-		conditions.City.NameIs().Eq("Paris"),
+		conditions.City.Name.Is().Eq("Paris"),
 	).Find()
 
 	// SQL executed:

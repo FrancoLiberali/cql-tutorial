@@ -16,10 +16,10 @@ import (
 
 // Target: get all cities whose name is 'Paris' and its population is greater than 1000000
 func tutorial(db *gorm.DB, shutdowner fx.Shutdowner) {
-	cities, err := orm.NewQuery[models.City](
+	cities, err := orm.Query[models.City](
 		db,
-		conditions.City.NameIs().Eq("Paris"),
-		conditions.City.PopulationIs().Gt(1000000),
+		conditions.City.Name.Is().Eq("Paris"),
+		conditions.City.Population.Is().Gt(1000000),
 	).Find()
 
 	// SQL executed:

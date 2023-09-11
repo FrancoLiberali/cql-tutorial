@@ -16,9 +16,9 @@ import (
 
 // Target: get the city named 'Paris' with the largest population
 func tutorial(db *gorm.DB, shutdowner fx.Shutdowner) {
-	parisFrance, err := orm.NewQuery[models.City](
+	parisFrance, err := orm.Query[models.City](
 		db,
-		conditions.City.NameIs().Eq("Paris"),
+		conditions.City.Name.Is().Eq("Paris"),
 	).Descending(
 		conditions.City.Population,
 	).Limit(1).FindOne()
