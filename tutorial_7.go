@@ -45,5 +45,7 @@ func tutorial(db *gorm.DB) {
 
 	// go back to initial situation with gorm's Save method
 	parisFrance.Population = 2161000
-	db.Save(&parisFrance)
+	if err := db.Save(&parisFrance).Error; err != nil {
+		log.Panicln(err)
+	}
 }
