@@ -1,7 +1,8 @@
 package main
 
 import (
-	"go.uber.org/fx"
+	"log"
+
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 
@@ -10,13 +11,14 @@ import (
 )
 
 func main() {
-	fx.New(
-		// connect to db
-		fx.Provide(NewDBConnection),
+	// connect to db
+	db, err := NewDBConnection()
+	if err != nil {
+		log.Fatalln(err)
+	}
 
-		// execute tutorial
-		fx.Invoke(tutorial),
-	).Run()
+	// execute tutorial
+	tutorial(db)
 }
 
 func NewDBConnection() (*gorm.DB, error) {
