@@ -7,18 +7,17 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/ditrit/badaas-orm-tutorial/conditions"
-	"github.com/ditrit/badaas-orm-tutorial/models"
-	"github.com/ditrit/badaas/orm"
-	"go.uber.org/fx"
+	"github.com/FrancoLiberali/cql"
+	"github.com/FrancoLiberali/cql-tutorial/conditions"
+	"github.com/FrancoLiberali/cql-tutorial/models"
 	"gorm.io/gorm"
 )
 
 // Target: get the city named 'Paris' with the largest population
-func tutorial(db *gorm.DB, shutdowner fx.Shutdowner) {
-	parisFrance, err := orm.NewQuery[models.City](
+func tutorial(db *gorm.DB) {
+	parisFrance, err := cql.Query[models.City](
 		db,
-		conditions.City.NameIs().Eq("Paris"),
+		conditions.City.Name.Is().Eq("Paris"),
 	).Descending(
 		conditions.City.Population,
 	).Limit(1).FindOne()
@@ -34,6 +33,4 @@ func tutorial(db *gorm.DB, shutdowner fx.Shutdowner) {
 	}
 
 	fmt.Printf("City named 'Paris' with the largest population is: %+v\n", parisFrance)
-
-	shutdowner.Shutdown()
 }

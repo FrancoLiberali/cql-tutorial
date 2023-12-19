@@ -7,20 +7,19 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/ditrit/badaas-orm-tutorial/conditions"
-	"github.com/ditrit/badaas-orm-tutorial/models"
-	"github.com/ditrit/badaas/orm"
-	"go.uber.org/fx"
+	"github.com/FrancoLiberali/cql"
+	"github.com/FrancoLiberali/cql-tutorial/conditions"
+	"github.com/FrancoLiberali/cql-tutorial/models"
 	"gorm.io/gorm"
 )
 
 // Target: get all cities whose name is 'Paris' and that are the capital of their country
-func tutorial(db *gorm.DB, shutdowner fx.Shutdowner) {
-	cities, err := orm.NewQuery[models.City](
+func tutorial(db *gorm.DB) {
+	cities, err := cql.Query[models.City](
 		db,
-		conditions.City.NameIs().Eq("Paris"),
+		conditions.City.Name.Is().Eq("Paris"),
 		conditions.City.Country(
-			conditions.Country.CapitalIdIs().Dynamic().Eq(conditions.City.ID),
+			conditions.Country.CapitalID.Is().Dynamic().Eq(conditions.City.ID),
 		),
 	).Find()
 
@@ -38,6 +37,4 @@ func tutorial(db *gorm.DB, shutdowner fx.Shutdowner) {
 	for i, city := range cities {
 		fmt.Printf("\t%v: %+v\n", i+1, city)
 	}
-
-	shutdowner.Shutdown()
 }

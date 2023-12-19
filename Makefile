@@ -15,3 +15,9 @@ tutorial_5:
 
 tutorial_6:
 	go run -tags=tutorial_6 .
+
+tutorial_7:
+	go run -tags=tutorial_7 .
+
+tutorial_8:
+	go run -tags=tutorial_8 .

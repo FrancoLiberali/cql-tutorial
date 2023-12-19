@@ -1,7 +1,7 @@
 package models
 
 import (
-	"github.com/ditrit/badaas/orm/model"
+	"github.com/FrancoLiberali/cql/model"
 )
 
 type Country struct {

@@ -1,27 +1,29 @@
 package main
 
 import (
-	"go.uber.org/fx"
+	"log"
+
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 
-	"github.com/ditrit/badaas/orm"
-	"github.com/ditrit/badaas/orm/logger"
+	"github.com/FrancoLiberali/cql"
+	"github.com/FrancoLiberali/cql/logger"
 )
 
 func main() {
-	fx.New(
-		// connect to db
-		fx.Provide(NewDBConnection),
+	// connect to db
+	db, err := NewDBConnection()
+	if err != nil {
+		log.Fatalln(err)
+	}
 
-		// execute tutorial
-		fx.Invoke(tutorial),
-	).Run()
+	// execute tutorial
+	tutorial(db)
 }
 
 func NewDBConnection() (*gorm.DB, error) {
-	return orm.Open(
-		sqlite.Open(orm.CreateSQLiteDSN("db")),
+	return cql.Open(
+		sqlite.Open("sqlite:db"),
 		&gorm.Config{Logger: logger.Default.ToLogMode(logger.Info)},
 	)
 }

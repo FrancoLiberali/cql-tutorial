@@ -7,19 +7,18 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/ditrit/badaas-orm-tutorial/conditions"
-	"github.com/ditrit/badaas-orm-tutorial/models"
-	"github.com/ditrit/badaas/orm"
-	"go.uber.org/fx"
+	"github.com/FrancoLiberali/cql"
+	"github.com/FrancoLiberali/cql-tutorial/conditions"
+	"github.com/FrancoLiberali/cql-tutorial/models"
 	"gorm.io/gorm"
 )
 
 // Target: get all cities whose name is 'Paris' and its population is greater than 1000000
-func tutorial(db *gorm.DB, shutdowner fx.Shutdowner) {
-	cities, err := orm.NewQuery[models.City](
+func tutorial(db *gorm.DB) {
+	cities, err := cql.Query[models.City](
 		db,
-		conditions.City.NameIs().Eq("Paris"),
-		conditions.City.PopulationIs().Gt(1000000),
+		conditions.City.Name.Is().Eq("Paris"),
+		conditions.City.Population.Is().Gt(1000000),
 	).Find()
 
 	// SQL executed:
@@ -34,6 +33,4 @@ func tutorial(db *gorm.DB, shutdowner fx.Shutdowner) {
 	for i, city := range cities {
 		fmt.Printf("\t%v: %+v\n", i+1, city)
 	}
-
-	shutdowner.Shutdown()
 }
