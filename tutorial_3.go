@@ -7,15 +7,15 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/ditrit/badaas-orm-tutorial/conditions"
-	"github.com/ditrit/badaas-orm-tutorial/models"
-	"github.com/ditrit/badaas/orm"
+	"github.com/FrancoLiberali/cql"
+	"github.com/FrancoLiberali/cql-tutorial/conditions"
+	"github.com/FrancoLiberali/cql-tutorial/models"
 	"gorm.io/gorm"
 )
 
 // Target: get the city named 'Paris' with the largest population
 func tutorial(db *gorm.DB) {
-	parisFrance, err := orm.Query[models.City](
+	parisFrance, err := cql.Query[models.City](
 		db,
 		conditions.City.Name.Is().Eq("Paris"),
 	).Descending(

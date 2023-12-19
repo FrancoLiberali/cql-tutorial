@@ -7,15 +7,15 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/ditrit/badaas-orm-tutorial/conditions"
-	"github.com/ditrit/badaas-orm-tutorial/models"
-	"github.com/ditrit/badaas/orm"
+	"github.com/FrancoLiberali/cql"
+	"github.com/FrancoLiberali/cql-tutorial/conditions"
+	"github.com/FrancoLiberali/cql-tutorial/models"
 	"gorm.io/gorm"
 )
 
 // Target: get all cities whose name is 'Paris' and preload its country
 func tutorial(db *gorm.DB) {
-	cities, err := orm.Query[models.City](
+	cities, err := cql.Query[models.City](
 		db,
 		conditions.City.Name.Is().Eq("Paris"),
 		conditions.City.PreloadCountry(),

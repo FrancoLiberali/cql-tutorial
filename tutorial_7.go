@@ -6,9 +6,9 @@ package main
 import (
 	"log"
 
-	"github.com/ditrit/badaas-orm-tutorial/conditions"
-	"github.com/ditrit/badaas-orm-tutorial/models"
-	"github.com/ditrit/badaas/orm"
+	"github.com/FrancoLiberali/cql"
+	"github.com/FrancoLiberali/cql-tutorial/conditions"
+	"github.com/FrancoLiberali/cql-tutorial/models"
 	"gorm.io/gorm"
 )
 
@@ -16,7 +16,7 @@ import (
 func tutorial(db *gorm.DB) {
 	var cities []models.City
 
-	updated, err := orm.Update[models.City](
+	updated, err := cql.Update[models.City](
 		db,
 		conditions.City.Name.Is().Eq("Paris"),
 		conditions.City.Country(

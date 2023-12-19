@@ -6,16 +6,16 @@ package main
 import (
 	"log"
 
-	"github.com/ditrit/badaas-orm-tutorial/conditions"
-	"github.com/ditrit/badaas-orm-tutorial/models"
-	"github.com/ditrit/badaas/orm"
+	"github.com/FrancoLiberali/cql"
+	"github.com/FrancoLiberali/cql-tutorial/conditions"
+	"github.com/FrancoLiberali/cql-tutorial/models"
 	"gorm.io/gorm"
 )
 
 // Target: create Rennes in France and then delete it
 func tutorial(db *gorm.DB) {
 	// get country called France
-	france, err := orm.Query[models.Country](
+	france, err := cql.Query[models.Country](
 		db,
 		conditions.Country.Name.Is().Eq("France"),
 	).FindOne()
@@ -35,7 +35,7 @@ func tutorial(db *gorm.DB) {
 	}
 
 	// delete city called Rennes
-	deleted, err := orm.Delete[models.City](
+	deleted, err := cql.Delete[models.City](
 		db,
 		conditions.City.Name.Is().Eq("Rennes"),
 	).Exec()

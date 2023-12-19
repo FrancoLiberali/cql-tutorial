@@ -1,11 +1,11 @@
-module github.com/ditrit/badaas-orm-tutorial
+module github.com/FrancoLiberali/cql-tutorial
 
 go 1.18
 
 require (
-	github.com/ditrit/badaas v0.0.0-20230911080244-4b834e9e4926
-	gorm.io/driver/sqlite v1.5.3
-	gorm.io/gorm v1.25.4
+	github.com/FrancoLiberali/cql v0.0.1
+	gorm.io/driver/sqlite v1.5.4
+	gorm.io/gorm v1.25.5
 )
 
 require (
@@ -16,6 +16,3 @@ require (
 	github.com/mattn/go-sqlite3 v1.14.17 // indirect
 	golang.org/x/exp v0.0.0-20230817173708-d852ddb80c63 // indirect
 )
-
-// TODO este deberia ser temporal
-replace gorm.io/driver/sqlite v1.5.3 => github.com/ditrit/sqlite v0.0.0-20230906140046-2f37a3f972de

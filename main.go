@@ -6,8 +6,8 @@ import (
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 
-	"github.com/ditrit/badaas/orm"
-	"github.com/ditrit/badaas/orm/logger"
+	"github.com/FrancoLiberali/cql"
+	"github.com/FrancoLiberali/cql/logger"
 )
 
 func main() {
@@ -22,8 +22,8 @@ func main() {
 }
 
 func NewDBConnection() (*gorm.DB, error) {
-	return orm.Open(
-		sqlite.Open(orm.CreateSQLiteDSN("db")),
+	return cql.Open(
+		sqlite.Open("sqlite:db"),
 		&gorm.Config{Logger: logger.Default.ToLogMode(logger.Info)},
 	)
 }
