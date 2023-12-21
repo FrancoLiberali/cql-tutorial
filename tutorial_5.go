@@ -22,7 +22,7 @@ func tutorial(db *gorm.DB) {
 	).Find()
 
 	// Equivalent to:
-	// cities, err := orm.NewQuery[models.City](
+	// cities, err := cql.Query[models.City](
 	// 	db,
 	// 	conditions.City.Name.Is().Eq("Paris"),
 	// 	conditions.City.Country(
