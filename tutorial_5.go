@@ -18,17 +18,8 @@ func tutorial(db *gorm.DB) {
 	cities, err := cql.Query[models.City](
 		db,
 		conditions.City.Name.Is().Eq("Paris"),
-		conditions.City.PreloadCountry(),
+		conditions.City.Country().Preload(),
 	).Find()
-
-	// Equivalent to:
-	// cities, err := cql.Query[models.City](
-	// 	db,
-	// 	conditions.City.Name.Is().Eq("Paris"),
-	// 	conditions.City.Country(
-	// 		conditions.Country.Preload(),
-	// 	),
-	// ).Find()
 
 	// SQL executed:
 	// SELECT cities.*,
