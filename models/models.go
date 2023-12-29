@@ -11,6 +11,8 @@ type Country struct {
 
 	Capital   *City // Country HasOne Capital (Country 1 -> 1 Capital)
 	CapitalID *model.UUID
+
+	Cities *[]City // Country HasMany City (Country 1 -> 1..* City)
 }
 
 type City struct {
