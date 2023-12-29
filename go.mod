@@ -3,7 +3,7 @@ module github.com/FrancoLiberali/cql-tutorial
 go 1.18
 
 require (
-	github.com/FrancoLiberali/cql v0.0.5
+	github.com/FrancoLiberali/cql v0.0.6
 	gorm.io/driver/sqlite v1.5.4
 	gorm.io/gorm v1.25.5
 )

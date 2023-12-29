@@ -24,3 +24,6 @@ tutorial_8:
 
 tutorial_9:
 	go run -tags=tutorial_9 .
+
+tutorial_10:
+	go run -tags=tutorial_10 .
