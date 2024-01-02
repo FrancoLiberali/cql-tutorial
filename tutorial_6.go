@@ -19,7 +19,7 @@ func tutorial(db *gorm.DB) {
 		db,
 		conditions.City.Name.Is().Eq("Paris"),
 		conditions.City.Country(
-			conditions.Country.CapitalID.Is().Dynamic().Eq(conditions.City.ID),
+			conditions.Country.CapitalID.IsDynamic().Eq(conditions.City.ID.Value()),
 		),
 	).Find()
 
