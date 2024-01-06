@@ -4,10 +4,10 @@ package models
 import preload "github.com/FrancoLiberali/cql/preload"
 
 func (m City) GetCountry() (*Country, error) {
-	return preload.VerifyPointerLoaded[Country](m.CountryID, m.Country)
+	return preload.VerifyPointerWithIDLoaded[Country](m.CountryID, m.Country)
 }
 func (m Country) GetCapital() (*City, error) {
-	return preload.VerifyPointerLoaded[City](m.CapitalID, m.Capital)
+	return preload.VerifyPointerWithIDLoaded[City](m.CapitalID, m.Capital)
 }
 func (m Country) GetCities() ([]City, error) {
 	return preload.VerifyCollectionLoaded[City](m.Cities)
