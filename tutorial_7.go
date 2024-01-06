@@ -4,6 +4,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 
 	"github.com/FrancoLiberali/cql"
@@ -40,8 +41,9 @@ func tutorial(db *gorm.DB) {
 	}
 
 	parisFrance := cities[0]
-	log.Printf("Updated %v city: %v\n", updated, parisFrance)
-	log.Println("Initial population was 2161000")
+	fmt.Println("--------------------------")
+	fmt.Printf("Updated %v city: %v\n", updated, parisFrance)
+	fmt.Println("Initial population was 2161000")
 
 	// go back to initial situation with gorm's Save method
 	parisFrance.Population = 2161000

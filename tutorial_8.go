@@ -4,6 +4,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 
 	"github.com/FrancoLiberali/cql"
@@ -49,5 +50,6 @@ func tutorial(db *gorm.DB) {
 		log.Panicln(err)
 	}
 
-	log.Printf("Deleted %v city\n", deleted)
+	fmt.Println("--------------------------")
+	fmt.Printf("Deleted %v city\n", deleted)
 }

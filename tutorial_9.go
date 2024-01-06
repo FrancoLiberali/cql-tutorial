@@ -35,7 +35,8 @@ func tutorial(db *gorm.DB) {
 		log.Panicln(err)
 	}
 
-	log.Println("Countries that have a city called 'Paris' are:")
+	fmt.Println("--------------------------")
+	fmt.Println("Countries that have a city called 'Paris' are:")
 	for i, country := range countries {
 		fmt.Printf("\t%v: %+v\n", i+1, country)
 	}

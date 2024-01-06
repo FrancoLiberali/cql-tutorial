@@ -33,5 +33,6 @@ func tutorial(db *gorm.DB) {
 		log.Panicln(err)
 	}
 
+	fmt.Println("--------------------------")
 	fmt.Printf("City named 'Paris' in 'France' is: %+v\n", parisFrance)
 }

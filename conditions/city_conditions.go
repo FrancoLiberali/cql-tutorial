@@ -13,20 +13,20 @@ func (cityConditions cityConditions) Country(conditions ...condition.Condition[m
 }
 
 type cityConditions struct {
-	ID         condition.Field[models.City, model.UUID]
+	ID         condition.Field[models.City, model.UIntID]
 	CreatedAt  condition.Field[models.City, time.Time]
 	UpdatedAt  condition.Field[models.City, time.Time]
 	DeletedAt  condition.Field[models.City, time.Time]
 	Name       condition.StringField[models.City]
 	Population condition.NumericField[models.City, int]
-	CountryID  condition.NullableField[models.City, model.UUID]
+	CountryID  condition.UpdatableField[models.City, model.UIntID]
 }
 
 var City = cityConditions{
-	CountryID:  condition.NewNullableField[models.City, model.UUID]("CountryID", "", ""),
+	CountryID:  condition.NewUpdatableField[models.City, model.UIntID]("CountryID", "", ""),
 	CreatedAt:  condition.NewField[models.City, time.Time]("CreatedAt", "", ""),
 	DeletedAt:  condition.NewField[models.City, time.Time]("DeletedAt", "", ""),
-	ID:         condition.NewField[models.City, model.UUID]("ID", "", ""),
+	ID:         condition.NewField[models.City, model.UIntID]("ID", "", ""),
 	Name:       condition.NewStringField[models.City]("Name", "", ""),
 	Population: condition.NewNumericField[models.City, int]("Population", "", ""),
 	UpdatedAt:  condition.NewField[models.City, time.Time]("UpdatedAt", "", ""),

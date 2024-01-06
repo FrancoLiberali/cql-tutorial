@@ -29,7 +29,8 @@ func tutorial(db *gorm.DB) {
 		log.Panicln(err)
 	}
 
-	log.Println("Cities named 'Paris' with a population bigger than 1.000.000 are:")
+	fmt.Println("--------------------------")
+	fmt.Println("Cities named 'Paris' with a population bigger than 1.000.000 are:")
 	for i, city := range cities {
 		fmt.Printf("\t%v: %+v\n", i+1, city)
 	}
