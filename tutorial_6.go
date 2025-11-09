@@ -13,21 +13,21 @@ import (
 	"github.com/FrancoLiberali/cql-tutorial/models"
 )
 
-// Target: get all cities whose name is 'Paris' and that are the capital of their country
+// Target: get all cities whose name is 'Paris' and preload its country
 func tutorial(db *cql.DB) {
 	cities, err := cql.Query[models.City](
 		context.Background(),
 		db,
 		conditions.City.Name.Is().Eq(cql.String("Paris")),
-		conditions.City.Country(
-			conditions.Country.CapitalID.Is().Eq(conditions.City.ID),
-		),
+		conditions.City.Country().Preload(),
 	).Find()
 
 	// SQL executed:
-	// SELECT cities.* FROM cities
-	// INNER JOIN countries Country ON
-	//    Country.id = cities.country_id AND Country.capital_id = cities.id
+	// SELECT cities.*,
+	//    Country.id AS Country__id,Country.name AS Country__name,Country.capital_id AS Country__capital_id
+	// FROM cities
+	// LEFT JOIN countries Country ON
+	//    Country.id = cities.country_id
 	// WHERE cities.name = "Paris"
 
 	if err != nil {
@@ -35,8 +35,15 @@ func tutorial(db *cql.DB) {
 	}
 
 	fmt.Println("--------------------------")
-	fmt.Println("Cities named 'Paris' that are the capital of their country are:")
+	fmt.Println("Cities named 'Paris' are:")
 	for i, city := range cities {
-		fmt.Printf("\t%v: %+v\n", i+1, city)
+		fmt.Printf("\t%v: %+v with country: ", i+1, city)
+
+		cityCountry, err := city.GetCountry()
+		if err != nil {
+			log.Panicln(err)
+		}
+
+		fmt.Printf("%+v\n", cityCountry)
 	}
 }

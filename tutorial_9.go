@@ -13,31 +13,48 @@ import (
 	"github.com/FrancoLiberali/cql-tutorial/models"
 )
 
-// Target: obtain all the countries that have a city called 'Paris'
+// Target: create Rennes in France and then delete it
 func tutorial(db *cql.DB) {
-	countries, err := cql.Query[models.Country](
+	// get country called France
+	france, err := cql.Query[models.Country](
 		context.Background(),
 		db,
-		conditions.Country.Cities.Any(
-			conditions.City.Name.Is().Eq(cql.String("Paris")),
-		),
-	).Find()
+		conditions.Country.Name.Is().Eq(cql.String("France")),
+	).FindOne()
+
+	if err != nil {
+		log.Panicln(err)
+	}
+
+	// create Rennes
+	rennes := models.City{
+		CountryID:  france.ID,
+		Name:       "Rennes",
+		Population: 215366,
+	}
+
+	inserted, err := cql.Insert(context.Background(), db, &rennes).Exec()
+	if err != nil {
+		log.Panicln(err)
+	}
+
+	fmt.Printf("Inserted %v city\n", inserted)
+
+	// delete city called Rennes
+	deleted, err := cql.Delete[models.City](
+		context.Background(),
+		db,
+		conditions.City.Name.Is().Eq(cql.String("Rennes")),
+	).Exec()
 
 	// SQL executed:
-	// SELECT countries.* FROM countries
-	// WHERE (EXISTS (
-	//     SELECT(1) FROM cities
-	//     WHERE cities.country_id = countries.id AND
-	//           cities.name = "Paris"
-	// ))
+	// DELETE FROM cities
+	// WHERE cities.name = "Rennes"
 
 	if err != nil {
 		log.Panicln(err)
 	}
 
 	fmt.Println("--------------------------")
-	fmt.Println("Countries that have a city called 'Paris' are:")
-	for i, country := range countries {
-		fmt.Printf("\t%v: %+v\n", i+1, country)
-	}
+	fmt.Printf("Deleted %v city\n", deleted)
 }
