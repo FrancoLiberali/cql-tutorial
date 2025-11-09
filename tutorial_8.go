@@ -28,10 +28,11 @@ func tutorial(db *cql.DB) {
 
 	// create Rennes
 	rennes := models.City{
-		Country:    france,
+		CountryID:  france.ID,
 		Name:       "Rennes",
 		Population: 215366,
 	}
+
 	inserted, err := cql.Insert(context.Background(), db, &rennes).Exec()
 	if err != nil {
 		log.Panicln(err)
