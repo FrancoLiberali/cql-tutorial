@@ -4,30 +4,31 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"log"
 
 	"github.com/FrancoLiberali/cql"
 	"github.com/FrancoLiberali/cql-tutorial/conditions"
 	"github.com/FrancoLiberali/cql-tutorial/models"
-	"gorm.io/gorm"
 )
 
 // Target: get all cities whose name is 'Paris' and that are the capital of their country
-func tutorial(db *gorm.DB) {
+func tutorial(db *cql.DB) {
 	cities, err := cql.Query[models.City](
+		context.Background(),
 		db,
-		conditions.City.Name.Is().Eq("Paris"),
+		conditions.City.Name.Is().Eq(cql.String("Paris")),
 		conditions.City.Country(
-			conditions.Country.CapitalID.IsDynamic().Eq(conditions.City.ID.Value()),
+			conditions.Country.CapitalID.Is().Eq(conditions.City.ID),
 		),
 	).Find()
 
 	// SQL executed:
 	// SELECT cities.* FROM cities
 	// INNER JOIN countries Country ON
-	//    Country.id = cities.country_id AND Country.capital_id = cities.id AND Country.deleted_at IS NULL
-	// WHERE cities.name = "Paris" AND cities.deleted_at IS NULL
+	//    Country.id = cities.country_id AND Country.capital_id = cities.id
+	// WHERE cities.name = "Paris"
 
 	if err != nil {
 		log.Panicln(err)

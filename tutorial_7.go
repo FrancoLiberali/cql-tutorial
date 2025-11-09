@@ -4,36 +4,36 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"log"
 
 	"github.com/FrancoLiberali/cql"
 	"github.com/FrancoLiberali/cql-tutorial/conditions"
 	"github.com/FrancoLiberali/cql-tutorial/models"
-	"gorm.io/gorm"
 )
 
 // Target: edit Paris France population to 2102650
-func tutorial(db *gorm.DB) {
+func tutorial(db *cql.DB) {
 	var cities []models.City
 
 	updated, err := cql.Update[models.City](
+		context.Background(),
 		db,
-		conditions.City.Name.Is().Eq("Paris"),
+		conditions.City.Name.Is().Eq(cql.String("Paris")),
 		conditions.City.Country(
-			conditions.Country.Name.Is().Eq("France"),
+			conditions.Country.Name.Is().Eq(cql.String("France")),
 		),
 	).Returning(&cities).Set(
-		conditions.City.Population.Set().Eq(2102650),
+		conditions.City.Population.Set().Eq(cql.Int64(2102650)),
 	)
 
 	// SQL executed:
 	// UPDATE cities
-	// SET population=2102650,updated_at="2023-09-11 10:41:19.272"
+	// SET population=2102650
 	// FROM countries Country
 	// WHERE cities.name = "Paris" AND
-	//    (Country.id = cities.country_id AND Country.name = "France" AND Country.deleted_at IS NULL) AND
-	//    cities.deleted_at IS NULL
+	//    (Country.id = cities.country_id AND Country.name = "France")
 	// RETURNING *
 
 	if err != nil {
@@ -47,7 +47,7 @@ func tutorial(db *gorm.DB) {
 
 	// go back to initial situation with gorm's Save method
 	parisFrance.Population = 2161000
-	if err := db.Save(&parisFrance).Error; err != nil {
+	if err := db.GormDB.Save(&parisFrance).Error; err != nil {
 		log.Panicln(err)
 	}
 }

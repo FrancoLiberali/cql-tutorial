@@ -4,30 +4,31 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"log"
 
 	"github.com/FrancoLiberali/cql"
 	"github.com/FrancoLiberali/cql-tutorial/conditions"
 	"github.com/FrancoLiberali/cql-tutorial/models"
-	"gorm.io/gorm"
 )
 
 // Target: get all cities whose name is 'Paris' and that the country to which they belong is called 'France'.
-func tutorial(db *gorm.DB) {
+func tutorial(db *cql.DB) {
 	parisFrance, err := cql.Query[models.City](
+		context.Background(),
 		db,
-		conditions.City.Name.Is().Eq("Paris"),
+		conditions.City.Name.Is().Eq(cql.String("Paris")),
 		conditions.City.Country(
-			conditions.Country.Name.Is().Eq("France"),
+			conditions.Country.Name.Is().Eq(cql.String("France")),
 		),
 	).FindOne()
 
 	// SQL executed:
 	// SELECT cities.* FROM cities
 	// INNER JOIN countries Country ON
-	//    Country.id = cities.country_id AND Country.name = "France" AND Country.deleted_at IS NULL
-	// WHERE cities.name = "Paris" AND cities.deleted_at IS NULL
+	//    Country.id = cities.country_id AND Country.name = "France"
+	// WHERE cities.name = "Paris"
 
 	if err != nil {
 		log.Panicln(err)
