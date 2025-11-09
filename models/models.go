@@ -34,7 +34,7 @@ type City struct {
 	Population int
 
 	Country   *Country
-	CountryID model.UIntID // City HasOne Country (Country 1 <- 1..* City)
+	CountryID model.UIntID `gorm:"not null"` // City HasOne Country (Country 1 <- 1..* City)
 }
 
 func (city City) String() string {

@@ -50,7 +50,7 @@ func createData(db *cql.DB) {
 	}
 
 	parisUSA := models.City{
-		Country:    &usa,
+		CountryID:  usa.ID,
 		Name:       "Paris",
 		Population: 25171,
 	}
@@ -59,7 +59,7 @@ func createData(db *cql.DB) {
 	}
 
 	washington := models.City{
-		Country:    &usa,
+		CountryID:  usa.ID,
 		Name:       "Washington D. C.",
 		Population: 689545,
 	}
@@ -80,7 +80,7 @@ func createData(db *cql.DB) {
 	}
 
 	parisFrance := models.City{
-		Country:    &france,
+		CountryID:  france.ID,
 		Name:       "Paris",
 		Population: 2161000,
 	}
