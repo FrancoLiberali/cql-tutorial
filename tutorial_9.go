@@ -4,21 +4,22 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"log"
 
 	"github.com/FrancoLiberali/cql"
 	"github.com/FrancoLiberali/cql-tutorial/conditions"
 	"github.com/FrancoLiberali/cql-tutorial/models"
-	"gorm.io/gorm"
 )
 
 // Target: obtain all the countries that have a city called 'Paris'
-func tutorial(db *gorm.DB) {
+func tutorial(db *cql.DB) {
 	countries, err := cql.Query[models.Country](
+		context.Background(),
 		db,
 		conditions.Country.Cities.Any(
-			conditions.City.Name.Is().Eq("Paris"),
+			conditions.City.Name.Is().Eq(cql.String("Paris")),
 		),
 	).Find()
 
@@ -27,9 +28,8 @@ func tutorial(db *gorm.DB) {
 	// WHERE (EXISTS (
 	//     SELECT(1) FROM cities
 	//     WHERE cities.country_id = countries.id AND
-	//           cities.name = "Paris" AND
-	//           cities.deleted_at IS NULL
-	// )) AND countries.deleted_at IS NULL
+	//           cities.name = "Paris"
+	// ))
 
 	if err != nil {
 		log.Panicln(err)

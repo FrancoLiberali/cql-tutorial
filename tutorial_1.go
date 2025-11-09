@@ -4,26 +4,27 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"log"
 
 	"github.com/FrancoLiberali/cql"
 	"github.com/FrancoLiberali/cql-tutorial/conditions"
 	"github.com/FrancoLiberali/cql-tutorial/models"
-	"gorm.io/gorm"
 )
 
 // Target: get all cities whose name is 'Paris'
-// SQL executed: SELECT cities.* FROM cities WHERE cities.name = "Paris" AND cities.deleted_at IS NULL
-func tutorial(db *gorm.DB) {
+// SQL executed: SELECT cities.* FROM cities WHERE cities.name = "Paris"
+func tutorial(db *cql.DB) {
 	cities, err := cql.Query[models.City](
+		context.Background(),
 		db,
-		conditions.City.Name.Is().Eq("Paris"),
+		conditions.City.Name.Is().Eq(cql.String("Paris")),
 	).Find()
 
 	// SQL executed:
 	// SELECT cities.* FROM cities
-	// WHERE cities.name = "Paris" AND cities.deleted_at IS NULL
+	// WHERE cities.name = "Paris"
 
 	if err != nil {
 		log.Panicln(err)

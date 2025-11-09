@@ -4,27 +4,28 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"log"
 
 	"github.com/FrancoLiberali/cql"
 	"github.com/FrancoLiberali/cql-tutorial/conditions"
 	"github.com/FrancoLiberali/cql-tutorial/models"
-	"gorm.io/gorm"
 )
 
 // Target: get the city named 'Paris' with the largest population
-func tutorial(db *gorm.DB) {
+func tutorial(db *cql.DB) {
 	parisFrance, err := cql.Query[models.City](
+		context.Background(),
 		db,
-		conditions.City.Name.Is().Eq("Paris"),
+		conditions.City.Name.Is().Eq(cql.String("Paris")),
 	).Descending(
 		conditions.City.Population,
 	).Limit(1).FindOne()
 
 	// SQL executed:
 	// SELECT cities.* FROM cities
-	// WHERE cities.name = "Paris" AND cities.deleted_at IS NULL
+	// WHERE cities.name = "Paris"
 	// ORDER BY cities.population DESC
 	// LIMIT 1
 

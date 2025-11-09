@@ -1,10 +1,10 @@
 package main
 
 import (
+	"context"
 	"log"
 
 	"gorm.io/driver/sqlite"
-	"gorm.io/gorm"
 
 	"github.com/FrancoLiberali/cql"
 	"github.com/FrancoLiberali/cql-tutorial/models"
@@ -25,15 +25,17 @@ func main() {
 
 }
 
-func NewDBConnection() (*gorm.DB, error) {
+func NewDBConnection() (*cql.DB, error) {
 	return cql.Open(
 		sqlite.Open("sqlite:db"),
-		&gorm.Config{Logger: logger.Default.ToLogMode(logger.Info)},
+		&cql.Config{Logger: logger.Default.ToLogMode(logger.Info)},
 	)
 }
 
-func createData(db *gorm.DB) {
-	if err := db.AutoMigrate(
+func createData(db *cql.DB) {
+	ctx := context.Background()
+
+	if err := db.GormDB.AutoMigrate(
 		models.City{},
 		models.Country{},
 	); err != nil {
@@ -43,51 +45,51 @@ func createData(db *gorm.DB) {
 	usa := models.Country{
 		Name: "United States of America",
 	}
-	if err := db.Create(&usa).Error; err != nil {
+	if _, err := cql.Insert(ctx, db, &usa).Exec(); err != nil {
 		log.Panicln(err)
 	}
 
 	parisUSA := models.City{
-		Country:    &usa,
+		CountryID:  usa.ID,
 		Name:       "Paris",
 		Population: 25171,
 	}
-	if err := db.Create(&parisUSA).Error; err != nil {
+	if _, err := cql.Insert(ctx, db, &parisUSA).Exec(); err != nil {
 		log.Panicln(err)
 	}
 
 	washington := models.City{
-		Country:    &usa,
+		CountryID:  usa.ID,
 		Name:       "Washington D. C.",
 		Population: 689545,
 	}
-	if err := db.Create(&washington).Error; err != nil {
+	if _, err := cql.Insert(ctx, db, &washington).Exec(); err != nil {
 		log.Panicln(err)
 	}
 
 	usa.CapitalID = washington.ID
-	if err := db.Save(&usa).Error; err != nil {
+	if err := db.GormDB.Save(&usa).Error; err != nil {
 		log.Panicln(err)
 	}
 
 	france := models.Country{
 		Name: "France",
 	}
-	if err := db.Create(&france).Error; err != nil {
+	if _, err := cql.Insert(ctx, db, &france).Exec(); err != nil {
 		log.Panicln(err)
 	}
 
 	parisFrance := models.City{
-		Country:    &france,
+		CountryID:  france.ID,
 		Name:       "Paris",
 		Population: 2161000,
 	}
-	if err := db.Create(&parisFrance).Error; err != nil {
+	if _, err := cql.Insert(ctx, db, &parisFrance).Exec(); err != nil {
 		log.Panicln(err)
 	}
 
 	france.CapitalID = parisFrance.ID
-	if err := db.Save(&france).Error; err != nil {
+	if err := db.GormDB.Save(&france).Error; err != nil {
 		log.Panicln(err)
 	}
 }

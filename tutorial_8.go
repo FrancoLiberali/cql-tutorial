@@ -4,47 +4,52 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"log"
 
 	"github.com/FrancoLiberali/cql"
 	"github.com/FrancoLiberali/cql-tutorial/conditions"
 	"github.com/FrancoLiberali/cql-tutorial/models"
-	"gorm.io/gorm"
 )
 
 // Target: create Rennes in France and then delete it
-func tutorial(db *gorm.DB) {
+func tutorial(db *cql.DB) {
 	// get country called France
 	france, err := cql.Query[models.Country](
+		context.Background(),
 		db,
-		conditions.Country.Name.Is().Eq("France"),
+		conditions.Country.Name.Is().Eq(cql.String("France")),
 	).FindOne()
 
 	if err != nil {
 		log.Panicln(err)
 	}
 
-	// create Rennes using gorm's Create method
+	// create Rennes
 	rennes := models.City{
-		Country:    france,
+		CountryID:  france.ID,
 		Name:       "Rennes",
 		Population: 215366,
 	}
-	if err := db.Create(&rennes).Error; err != nil {
+
+	inserted, err := cql.Insert(context.Background(), db, &rennes).Exec()
+	if err != nil {
 		log.Panicln(err)
 	}
 
+	fmt.Printf("Inserted %v city\n", inserted)
+
 	// delete city called Rennes
 	deleted, err := cql.Delete[models.City](
+		context.Background(),
 		db,
-		conditions.City.Name.Is().Eq("Rennes"),
+		conditions.City.Name.Is().Eq(cql.String("Rennes")),
 	).Exec()
 
 	// SQL executed:
-	// UPDATE cities
-	// SET deleted_at="2023-09-11 10:54:12.598"
-	// WHERE cities.name = "Rennes" AND cities.deleted_at IS NULL
+	// DELETE FROM cities
+	// WHERE cities.name = "Rennes"
 
 	if err != nil {
 		log.Panicln(err)

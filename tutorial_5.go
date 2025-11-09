@@ -4,30 +4,31 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"log"
 
 	"github.com/FrancoLiberali/cql"
 	"github.com/FrancoLiberali/cql-tutorial/conditions"
 	"github.com/FrancoLiberali/cql-tutorial/models"
-	"gorm.io/gorm"
 )
 
 // Target: get all cities whose name is 'Paris' and preload its country
-func tutorial(db *gorm.DB) {
+func tutorial(db *cql.DB) {
 	cities, err := cql.Query[models.City](
+		context.Background(),
 		db,
-		conditions.City.Name.Is().Eq("Paris"),
+		conditions.City.Name.Is().Eq(cql.String("Paris")),
 		conditions.City.Country().Preload(),
 	).Find()
 
 	// SQL executed:
 	// SELECT cities.*,
-	//    Country.id AS Country__id,Country.created_at AS Country__created_at,Country.updated_at AS Country__updated_at,Country.deleted_at AS Country__deleted_at,Country.name AS Country__name,Country.capital_id AS Country__capital_id
+	//    Country.id AS Country__id,Country.name AS Country__name,Country.capital_id AS Country__capital_id
 	// FROM cities
 	// LEFT JOIN countries Country ON
-	//    Country.id = cities.country_id AND Country.deleted_at IS NULL
-	// WHERE cities.name = "Paris" AND cities.deleted_at IS NULL
+	//    Country.id = cities.country_id
+	// WHERE cities.name = "Paris"
 
 	if err != nil {
 		log.Panicln(err)
