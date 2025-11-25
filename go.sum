@@ -1,7 +1,7 @@
 github.com/DATA-DOG/go-sqlmock v1.5.2 h1:OcvFkGmslmlZibjAjaHm3L//6LiuBgolP7OputlJIzU=
 github.com/DATA-DOG/go-sqlmock v1.5.2/go.mod h1:88MAG/4G7SMwSE3CeA0ZKzrT5CiOU3OJ+JlNzwDqpNU=
-github.com/FrancoLiberali/cql v0.6.0 h1:5/74YQdNF2Qe1v8Q7ObS8DkAfzj15+26Q3rzBAlrgFs=
-github.com/FrancoLiberali/cql v0.6.0/go.mod h1:SYg4H7Y1t4oqdjyIdJy6Ec4apCIGFaLB4o9w/v9eeRk=
+github.com/FrancoLiberali/cql v0.7.0 h1:M1Or9knG1KakF9Z5M8WPFkHpNMHQCA6yO8tieoFEaPw=
+github.com/FrancoLiberali/cql v0.7.0/go.mod h1:SYg4H7Y1t4oqdjyIdJy6Ec4apCIGFaLB4o9w/v9eeRk=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/elliotchance/pie/v2 v2.9.1 h1:v7TdC6ZdNZJ1HACofpLXvGKHUk307AjY/bttwDPWKEQ=
