@@ -13,48 +13,41 @@ import (
 	"github.com/FrancoLiberali/cql-tutorial/models"
 )
 
-// Target: create Rennes in France and then delete it
+// Target: edit Paris France population to 2102650
 func tutorial(db *cql.DB) {
-	// get country called France
-	france, err := cql.Query[models.Country](
+	var cities []models.City
+
+	updated, err := cql.Update[models.City](
 		context.Background(),
 		db,
-		conditions.Country.Name.Is().Eq(cql.String("France")),
-	).FindOne()
-
-	if err != nil {
-		log.Panicln(err)
-	}
-
-	// create Rennes
-	rennes := models.City{
-		CountryID:  france.ID,
-		Name:       "Rennes",
-		Population: 215366,
-	}
-
-	inserted, err := cql.Insert(context.Background(), db, &rennes).Exec()
-	if err != nil {
-		log.Panicln(err)
-	}
-
-	fmt.Printf("Inserted %v city\n", inserted)
-
-	// delete city called Rennes
-	deleted, err := cql.Delete[models.City](
-		context.Background(),
-		db,
-		conditions.City.Name.Is().Eq(cql.String("Rennes")),
-	).Exec()
+		conditions.City.Name.Is().Eq(cql.String("Paris")),
+		conditions.City.Country(
+			conditions.Country.Name.Is().Eq(cql.String("France")),
+		),
+	).Returning(&cities).Set(
+		conditions.City.Population.Set().Eq(cql.Int64(2102650)),
+	)
 
 	// SQL executed:
-	// DELETE FROM cities
-	// WHERE cities.name = "Rennes"
+	// UPDATE cities
+	// SET population=2102650
+	// FROM countries Country
+	// WHERE cities.name = "Paris" AND
+	//    (Country.id = cities.country_id AND Country.name = "France")
+	// RETURNING *
 
 	if err != nil {
 		log.Panicln(err)
 	}
 
+	parisFrance := cities[0]
 	fmt.Println("--------------------------")
-	fmt.Printf("Deleted %v city\n", deleted)
+	fmt.Printf("Updated %v city: %v\n", updated, parisFrance)
+	fmt.Println("Initial population was 2161000")
+
+	// go back to initial situation with gorm's Save method
+	parisFrance.Population = 2161000
+	if err := db.GormDB.Save(&parisFrance).Error; err != nil {
+		log.Panicln(err)
+	}
 }

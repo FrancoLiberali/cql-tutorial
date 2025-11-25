@@ -13,21 +13,21 @@ import (
 	"github.com/FrancoLiberali/cql-tutorial/models"
 )
 
-// Target: get all cities whose name is 'Paris' and preload its country
+// Target: get all cities whose name is 'Paris' and that the country to which they belong is called 'France'.
 func tutorial(db *cql.DB) {
-	cities, err := cql.Query[models.City](
+	parisFrance, err := cql.Query[models.City](
 		context.Background(),
 		db,
 		conditions.City.Name.Is().Eq(cql.String("Paris")),
-		conditions.City.Country().Preload(),
-	).Find()
+		conditions.City.Country(
+			conditions.Country.Name.Is().Eq(cql.String("France")),
+		),
+	).FindOne()
 
 	// SQL executed:
-	// SELECT cities.*,
-	//    Country.id AS Country__id,Country.name AS Country__name,Country.capital_id AS Country__capital_id
-	// FROM cities
-	// LEFT JOIN countries Country ON
-	//    Country.id = cities.country_id
+	// SELECT cities.* FROM cities
+	// INNER JOIN countries Country ON
+	//    Country.id = cities.country_id AND Country.name = "France"
 	// WHERE cities.name = "Paris"
 
 	if err != nil {
@@ -35,15 +35,5 @@ func tutorial(db *cql.DB) {
 	}
 
 	fmt.Println("--------------------------")
-	fmt.Println("Cities named 'Paris' are:")
-	for i, city := range cities {
-		fmt.Printf("\t%v: %+v with country: ", i+1, city)
-
-		cityCountry, err := city.GetCountry()
-		if err != nil {
-			log.Panicln(err)
-		}
-
-		fmt.Printf("%+v\n", cityCountry)
-	}
+	fmt.Printf("City named 'Paris' in 'France' is: %+v\n", parisFrance)
 }
