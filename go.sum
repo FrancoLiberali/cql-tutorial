@@ -1,7 +1,9 @@
 github.com/DATA-DOG/go-sqlmock v1.5.2 h1:OcvFkGmslmlZibjAjaHm3L//6LiuBgolP7OputlJIzU=
 github.com/DATA-DOG/go-sqlmock v1.5.2/go.mod h1:88MAG/4G7SMwSE3CeA0ZKzrT5CiOU3OJ+JlNzwDqpNU=
-github.com/FrancoLiberali/cql v0.7.0 h1:M1Or9knG1KakF9Z5M8WPFkHpNMHQCA6yO8tieoFEaPw=
-github.com/FrancoLiberali/cql v0.7.0/go.mod h1:SYg4H7Y1t4oqdjyIdJy6Ec4apCIGFaLB4o9w/v9eeRk=
+github.com/FrancoLiberali/cql v0.7.2-0.20260907192445-680f9866774d h1:0SFZ1zshBwjDOER7xgR0maXY/UbkZB+es/2uVq0qJb4=
+github.com/FrancoLiberali/cql v0.7.2-0.20260907192445-680f9866774d/go.mod h1:SYg4H7Y1t4oqdjyIdJy6Ec4apCIGFaLB4o9w/v9eeRk=
+github.com/FrancoLiberali/gorm v1.31.2-0.20260907192458-1d63aa1cb620 h1:8rxcrP06etj1WsGhkB7hwIrgGMATG3dmsy1TMOb6mBY=
+github.com/FrancoLiberali/gorm v1.31.2-0.20260907192458-1d63aa1cb620/go.mod h1:XyQVbO2k6YkOis7C2437jSit3SsDK72s7n7rsSHd+Gs=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/elliotchance/pie/v2 v2.9.1 h1:v7TdC6ZdNZJ1HACofpLXvGKHUk307AjY/bttwDPWKEQ=
@@ -40,5 +42,3 @@ gorm.io/driver/postgres v1.6.0 h1:2dxzU8xJ+ivvqTRph34QX+WrRaJlmfyPqXmoGVjMBa4=
 gorm.io/driver/postgres v1.6.0/go.mod h1:vUw0mrGgrTK+uPHEhAdV4sfFELrByKVGnaVRkXDhtWo=
 gorm.io/driver/sqlite v1.6.0 h1:WHRRrIiulaPiPFmDcod6prc4l2VGVWHz80KspNsxSfQ=
 gorm.io/driver/sqlite v1.6.0/go.mod h1:AO9V1qIQddBESngQUKWL9yoH93HIeA1X6V633rBwyT8=
-gorm.io/gorm v1.30.0 h1:qbT5aPv1UH8gI99OsRlvDToLxW5zR7FzS9acZDOZcgs=
-gorm.io/gorm v1.30.0/go.mod h1:8Z33v652h4//uMA76KjeDH8mJXPm1QNCYrMeatR0DOE=
