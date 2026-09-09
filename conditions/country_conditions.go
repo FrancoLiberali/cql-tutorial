@@ -8,7 +8,7 @@ import (
 )
 
 func (countryConditions countryConditions) Capital(conditions ...condition.Condition[models.City]) condition.JoinCondition[models.Country] {
-	return condition.NewJoinCondition[models.Country, models.City](conditions, "Capital", "CapitalID", countryConditions.preload(), "ID", City.preload())
+	return condition.NewJoinCondition[models.Country, models.City](conditions, "Capital", "CapitalID", countryConditions.preload(), "ID", City.preload(), countryCapitalJoinScanner)
 }
 
 type countryConditions struct {
@@ -20,7 +20,7 @@ type countryConditions struct {
 
 var Country = countryConditions{
 	CapitalID: condition.NewUpdatableField[models.Country, model.UIntID]("CapitalID", "", ""),
-	Cities:    condition.NewCollection[models.Country, models.City]("Cities", "ID", "CountryID"),
+	Cities:    condition.NewCollection[models.Country, models.City]("Cities", "ID", "CountryID", countryCitiesHasManyLoader),
 	ID:        condition.NewField[models.Country, model.UIntID]("ID", "", ""),
 	Name:      condition.NewStringField[models.Country]("Name", "", ""),
 }
