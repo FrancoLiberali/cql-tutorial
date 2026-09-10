@@ -1,5 +1,5 @@
-github.com/FrancoLiberali/cql v0.7.2-0.20260910145742-eaa0c8857f60 h1:HnQTnNqLTzG1nidJK4pyW2z0/dWIHtzPJjOtyEOaSY0=
-github.com/FrancoLiberali/cql v0.7.2-0.20260910145742-eaa0c8857f60/go.mod h1:f3yu5vRMLWw2NzDqSDIfMfXgydkect7Rdka8dNbgt2M=
+github.com/FrancoLiberali/cql v0.8.0 h1:MNIAfMdejByVxEnZBvNqkMuCKU68mYSD2W0/GRJj/sg=
+github.com/FrancoLiberali/cql v0.8.0/go.mod h1:7gMPbf8OBHHYgbwfkZBCzz+5tE1gpieL1ynHot2mDdk=
 github.com/FrancoLiberali/gorm v1.31.3 h1:61APV/c1YhFvHd5O4mLUSlFhywpDUk3o0N1Z/g7VtUQ=
 github.com/FrancoLiberali/gorm v1.31.3/go.mod h1:XyQVbO2k6YkOis7C2437jSit3SsDK72s7n7rsSHd+Gs=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
