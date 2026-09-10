@@ -1,7 +1,7 @@
-github.com/FrancoLiberali/cql v0.7.2-0.20260909171557-e031c7860c97 h1:PYwthtom1euvLrzZhuYvcrnLdQFNkEqn49LKk9Rl/f4=
-github.com/FrancoLiberali/cql v0.7.2-0.20260909171557-e031c7860c97/go.mod h1:d19UvBJVsIar6AQd17dq9BWjJ3CqZkNhwClw9MN9B5Y=
-github.com/FrancoLiberali/gorm v1.31.2-0.20260907194333-9213b097b3bf h1:dwjKnSzwtlS4kC+aW4TlgmeKoM/56r+h27uyHdE6AR4=
-github.com/FrancoLiberali/gorm v1.31.2-0.20260907194333-9213b097b3bf/go.mod h1:XyQVbO2k6YkOis7C2437jSit3SsDK72s7n7rsSHd+Gs=
+github.com/FrancoLiberali/cql v0.7.2-0.20260910145742-eaa0c8857f60 h1:HnQTnNqLTzG1nidJK4pyW2z0/dWIHtzPJjOtyEOaSY0=
+github.com/FrancoLiberali/cql v0.7.2-0.20260910145742-eaa0c8857f60/go.mod h1:f3yu5vRMLWw2NzDqSDIfMfXgydkect7Rdka8dNbgt2M=
+github.com/FrancoLiberali/gorm v1.31.2-0.20260910144158-ae0d3c94ad9c h1:o3njVhS6jL5EG6dnfArSY2clTeGkOAYDAgPU8NsYjog=
+github.com/FrancoLiberali/gorm v1.31.2-0.20260910144158-ae0d3c94ad9c/go.mod h1:XyQVbO2k6YkOis7C2437jSit3SsDK72s7n7rsSHd+Gs=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/elliotchance/pie/v2 v2.9.1 h1:v7TdC6ZdNZJ1HACofpLXvGKHUk307AjY/bttwDPWKEQ=
