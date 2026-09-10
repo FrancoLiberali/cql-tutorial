@@ -3,8 +3,9 @@ module github.com/FrancoLiberali/cql-tutorial
 go 1.22.0
 
 require (
-	github.com/FrancoLiberali/cql v0.7.0
+	github.com/FrancoLiberali/cql v0.8.0
 	gorm.io/driver/sqlite v1.6.0
+	gorm.io/gorm v1.30.0
 )
 
 require (
@@ -15,5 +16,6 @@ require (
 	github.com/mattn/go-sqlite3 v1.14.22 // indirect
 	golang.org/x/exp v0.0.0-20250210185358-939b2ce775ac // indirect
 	golang.org/x/text v0.21.0 // indirect
-	gorm.io/gorm v1.30.0 // indirect
 )
+
+replace gorm.io/gorm => github.com/FrancoLiberali/gorm v1.31.3
